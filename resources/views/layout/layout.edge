@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900&display=swap&subset=cyrillic"
+          rel="stylesheet">
+    {{ style('/css/materialize.min') }}
+    {{ style('/css/style') }}
+</head>
+<body class="blue-grey lighten-5">
+
+@include('layout.header')
+
+<main class="container white z-depth-1-half">
+    <div class="row">
+
+        <div class="col s12 m8 l9">
+            @section('content')
+                <p>Main content</p>
+            @endsection
+        </div>
+
+        <aside class="col s12 m4 l3">
+            @include('layout.sidebar')
+        </aside>
+
+    </div>
+</main>
+
+@include('layout.footer')
+
+{{ script('/js/jquery.min') }}
+{{ script('/js/materialize.min') }}
+{{ script('/js/script') }}
+</body>
+</html>

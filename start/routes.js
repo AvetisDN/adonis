@@ -16,13 +16,15 @@
 /** @type {typeof import('@adonisjs/framework/src/Route/Manager')} */
 const Route = use('Route')
 
-Route.on('/').render('welcome')
+Route.get('/', 'SiteController.index').as('home')
+Route.get('/signup', 'SiteController.signup').middleware(['guest'])
+Route.get('/signin', 'SiteController.signin').middleware(['guest'])
 
 Route.post('/register', 'AuthController.register')
 Route.post('/login', 'AuthController.login')
 
-Route.put('/posts/:id', 'PostController.update').middleware('auth')
-Route.delete('posts/id', 'PostController.delete').middleware('auth')
-Route.post('/posts', 'PostController.store').middleware('auth')
+Route.put('/posts/:id', 'PostController.update').middleware(['auth'])
+Route.delete('posts/id', 'PostController.delete').middleware(['auth'])
+Route.post('/posts', 'PostController.store').middleware(['auth'])
 Route.get('/posts', 'PostController.getPosts');
 

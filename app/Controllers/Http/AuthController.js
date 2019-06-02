@@ -12,10 +12,10 @@ class AuthController {
 
         Object.assign(user, token)
 
-        return response.json(user)
+        return response.route('home')
     }
 
-    async login({request, auth, response}) {
+    async login({request, auth, response, jwt}) {
 
         let {email, password} = request.all();
 
@@ -25,7 +25,8 @@ class AuthController {
                 let token = await auth.generate(user)
 
                 Object.assign(user, token)
-                return response.json(user)
+
+                return response.route('home')
             }
         }
         catch (e) {

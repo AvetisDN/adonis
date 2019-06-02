@@ -1,0 +1,35 @@
+@layout('layout.layout')
+
+@section('content')
+
+    <section class="container">
+
+        <div class="row">
+            <form class="col s12" action="/register" method="post">
+                <div class="row blue-grey-text">
+                    <div class="input-field col s12">
+                        <i class="material-icons prefix">account_circle</i>
+                        <input id="username" type="text" required name="username" class="validate">
+                        <label for="username">Username</label>
+                    </div>
+                    <div class="input-field col s12">
+                        <i class="material-icons prefix">mail</i>
+                        <input id="email" type="email" required name="email" class="validate">
+                        <label for="email">E-Mail</label>
+                    </div>
+                    <div class="input-field col s12">
+                        <i class="material-icons prefix">vpn_key</i>
+                        <input id="password" type="password" required name="password" class="validate">
+                        <label for="password">Password</label>
+                    </div>
+                    <div class="input-field col s12">
+                        <button type="submit" class="waves-effect deep-orange waves-light btn-large">
+                            <i class="material-icons right">add_circle</i> Register</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+    </section>
+
+@endsection
