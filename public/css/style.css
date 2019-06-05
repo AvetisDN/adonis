@@ -20,3 +20,18 @@ main aside {
   height: 100%;
   padding: 1rem .75rem !important;
 }
+
+.notification {
+  padding: 1rem !important;
+  color: #ffffff;
+  margin: .5rem !important;
+}
+.error {
+  background-color: #c62828;
+}
+.success {
+  background-color: #00e676;
+}
+.warning {
+  background-color: #ff8f00;
+}

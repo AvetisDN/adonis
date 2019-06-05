@@ -1,10 +1,13 @@
 <li><a href="/">Home</a></li>
+@loggedIn
 <li>
-    @loggedIn
-        Hello {{ auth.user.username }}
-    @else
-        Please login
-    @endloggedIn
+    <a href="#">{{ auth.user.username }}</a>
 </li>
+<li>
+    <a href="/logout">Logout</a>
+</li>
+
+    @else
 <li><a href="/signin">Login</a></li>
 <li><a href="/signup">Register</a></li>
+    @endloggedIn

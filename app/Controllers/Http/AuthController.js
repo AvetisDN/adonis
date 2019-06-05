@@ -3,36 +3,34 @@
 const User = use('App/Models/User')
 
 class AuthController {
-    async register({request, auth, response}) {
+    async register({request, auth, response, session}) {
 
-        let user = await User.create(request.all())
+        let user = await User.create(request.except(['_csrf']))
 
-        //generate token for user;
-        let token = await auth.generate(user)
+        await auth.login(user)
 
-        Object.assign(user, token)
-
+        session.flash({ notification: {type: 'success', message: 'You are now registered'} })
         return response.route('home')
     }
 
-    async login({request, auth, response, jwt}) {
+    async login({request, auth, response, session}) {
 
-        let {email, password} = request.all();
-
+        let {email, password, remember} = request.all();
         try {
-            if (await auth.attempt(email, password)) {
-                let user = await User.findBy('email', email)
-                let token = await auth.generate(user)
-
-                Object.assign(user, token)
-
-                return response.route('home')
-            }
+            await auth.remember(!!remember).attempt(email, password)
+            session.flash({ notification: {type: 'success', message: 'Welcome back!'} })
+            return response.route('home')
         }
         catch (e) {
-            console.log(e)
-            return response.json({message: 'You are not registered!'})
+            session.flash({ notification: {type: 'error', message: 'Authentication error'} })
+            return response.redirect('back')
         }
+    }
+
+    async logout({request, auth, response, session}) {
+        await auth.logout()
+        session.flash({ notification: {type: 'warning', message: 'Bye! See you later'} })
+        return response.route('home')
     }
 }
 

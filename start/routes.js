@@ -22,6 +22,7 @@ Route.get('/signin', 'SiteController.signin').middleware(['guest'])
 
 Route.post('/register', 'AuthController.register')
 Route.post('/login', 'AuthController.login')
+Route.get('/logout', 'AuthController.logout')
 
 Route.put('/posts/:id', 'PostController.update').middleware(['auth'])
 Route.delete('posts/id', 'PostController.delete').middleware(['auth'])

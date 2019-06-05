@@ -37,6 +37,9 @@ class User extends Model {
   posts () {
     return this.hasMany('App/Models/Post')
   }
+  role () {
+    return this.belongsTo('App/Models/Role')
+  }
 }
 
 module.exports = User
