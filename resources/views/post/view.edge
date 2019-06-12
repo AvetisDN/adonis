@@ -1,0 +1,36 @@
+@layout('layout.layout')
+
+@section('content')
+
+    <section>
+
+        <h5>{{ post.title }}</h5>
+            <div class="row blue-grey-text">
+                <div class="input-field col s12">
+                </div>
+                <div class="input-field col s12 m6">
+                    Автор: {{post.user.username}}
+                </div>
+                <div class="input-field col s12 m6"></div>
+                <div class="input-field col s12">
+                    <p>
+                        {{post.description}}
+                    </p>
+                </div>
+                <div class="input-field col s12 m6">
+                    Создано: {{post.created_at}}
+                </div>
+                <div class="input-field col s12 m6">
+                    Последняя редакция: {{post.updated_at}}
+                </div>
+                <div class="input-field col s12"></div>
+                <div class="input-field col s12">
+                    <a class="waves-effect deep-orange waves-light btn-large" href="/posts/{{post.id}}">
+                        <i class="material-icons right">edit</i> Редактировать</a>
+                    <a class="waves-effect blue waves-light btn-large" href="/posts">
+                        <i class="material-icons right">backspace</i> Назад</a>
+                </div>
+            </div>
+
+    </section>
+@endsection

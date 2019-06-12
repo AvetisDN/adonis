@@ -1,0 +1,62 @@
+@layout('layout.layout')
+
+@section('content')
+
+    <section>
+
+        <h5>Редактирование записи: {{ post.title }}</h5>
+        <form class="col s12" action="/posts/{{ post.id  }}" method="post">
+
+            {{ csrfField() }}
+            <div class="row blue-grey-text">
+                <div class="input-field col s12">
+                </div>
+                <div class="input-field col s12 m6">
+                    <i class="material-icons prefix">mail</i>
+                    <input id="title" type="text" required name="title" class="validate" value="{{ post.title  }}">
+                    <label for="title">Заголовок</label>
+                </div>
+                <div class="input-field col s12 m6">
+{{--                    <input type="text" id="username" name="username" class="autocomplete" value="{{ post.user.username }}">--}}
+{{--                    <label for="username">Автор</label>--}}
+                    <label for="user_id"></label>
+                    <select id="user_id" name="user_id">
+                        @each(user in users)
+                            <option value="{{user.id}}"
+                                    @if(user.id == post.user_id)
+                                        selected="selected"
+                                    @endif
+                            >{{user.username}}</option>
+                        @endeach
+                    </select>
+
+                </div>
+                <div class="input-field col s12">
+                    <i class="material-icons prefix">description</i>
+                    <textarea id="description" name="description" class="materialize-textarea">{{ post.description  }}</textarea>
+                    <label for="description">Текст записи</label>
+                </div>
+                <div class="input-field col s12">
+{{--                    <input type="text" class="timepicker" value="">--}}
+{{--                    <input type="text" class="datepicker" value="">--}}
+                </div>
+                <div class="input-field col s12">
+                    <button type="submit" class="waves-effect deep-orange waves-light btn-large">
+                        <i class="material-icons right">save</i> Сохранить</button>
+                    <a class="waves-effect blue waves-light btn-large" href="/posts">
+                        <i class="material-icons right">backspace</i> Назад</a>
+                </div>
+            </div>
+        </form>
+
+    </section>
+    <script>
+        {{--let usersArray = [];--}}
+        {{--@each(user in users)--}}
+        {{--    usersArray.push({--}}
+        {{--        id: {{user.id}},--}}
+        {{--        username: '{{user.username}}',--}}
+        {{--    });--}}
+        {{--@endeach--}}
+    </script>
+@endsection

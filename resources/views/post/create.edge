@@ -1,0 +1,39 @@
+@layout('layout.layout')
+
+@section('content')
+
+    <section>
+
+        <h5>Добавление записи</h5>
+        <form class="col s12" action="/posts" method="post">
+
+            {{ csrfField() }}
+            <input type="hidden" value="{{auth.user.id}}" name="user_id">
+            <div class="row blue-grey-text">
+                <div class="input-field col s12">
+                </div>
+                <div class="input-field col s12 m6">
+                    <i class="material-icons prefix">mail</i>
+                    <input id="title" type="text" required name="title" class="validate">
+                    <label for="title">Заголовок</label>
+                </div>
+                <div class="input-field col s12 m6">
+                </div>
+                <div class="input-field col s12">
+                    <i class="material-icons prefix">description</i>
+                    <textarea id="description" name="description" class="materialize-textarea"></textarea>
+                    <label for="description">Текст записи</label>
+                </div>
+                <div class="input-field col s12">
+                </div>
+                <div class="input-field col s12">
+                    <button type="submit" class="waves-effect deep-orange waves-light btn-large">
+                        <i class="material-icons right">save</i> Сохранить</button>
+                    <a class="waves-effect blue waves-light btn-large" href="/posts">
+                        <i class="material-icons right">backspace</i> Назад</a>
+                </div>
+            </div>
+        </form>
+
+    </section>
+@endsection

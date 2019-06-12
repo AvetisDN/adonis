@@ -5,16 +5,13 @@
 /** @typedef {import('@adonisjs/framework/src/View')} View */
 
 const Post = use('App/Models/Post')
+const User = use('App/Models/User')
+const Database = use('Database')
 
 /**
  * Resourceful controller for interacting with posts
  */
 class PostController {
-
-  async getPosts({request, response}) {
-    let posts = await Post.query().with('user').fetch()
-    return response.json(posts)
-  }
 
   /**
    * Show a list of all posts.
@@ -26,6 +23,13 @@ class PostController {
    * @param {View} ctx.view
    */
   async index ({ request, response, view }) {
+    let sort = 'id'
+    let type = 'desc'
+    if(request.get().sort) sort = request.get().sort
+    if(request.get().type) type = request.get().type
+    let posts = await Post.query().with('user').orderBy(sort, type).fetch()
+    //return response.json(posts)
+    return view.render('post.index', {posts: posts.toJSON(), sort: sort, type: type})
   }
 
   /**
@@ -38,6 +42,7 @@ class PostController {
    * @param {View} ctx.view
    */
   async create ({ request, response, view }) {
+    return view.render('post.create')
   }
 
   /**
@@ -48,17 +53,10 @@ class PostController {
    * @param {Request} ctx.request
    * @param {Response} ctx.response
    */
-  async store ({ request, auth, response }) {
-    try {
-      // if (await auth.check()) {
-      let post = await auth.user.posts().create(request.all())
-      await post.load('user');
-      return response.json(post)
-      // }
-    } catch (e) {
-      console.log(e)
-      return response.json({message: 'You are not authorized to perform this action'})
-    }
+  async store ({ request, auth, response, session }) {
+    let post = await  Post.create(request.except('_csrf'))
+    session.flash({ notification: {type: 'success', message: 'Post was created successfully!'} })
+    return response.route('/posts')
   }
 
   /**
@@ -71,6 +69,8 @@ class PostController {
    * @param {View} ctx.view
    */
   async show ({ params, request, response, view }) {
+    let post = await Post.query().where('id', params.id).with('user').fetch()
+    return view.render('post.view', {post: post.toJSON()[0]})
   }
 
   /**
@@ -83,6 +83,9 @@ class PostController {
    * @param {View} ctx.view
    */
   async edit ({ params, request, response, view }) {
+    let post = await Post.query().where('id', params.id).with('user').fetch()
+    let users = await User.query().fetch()
+    return view.render('post.edit', {post: post.toJSON()[0], users: users.toJSON()})
   }
 
   /**
@@ -96,8 +99,10 @@ class PostController {
   async update ({ params, request, response }) {
     let post = await Post.find(params.id)
 
+
     post.title = request.input('title')
     post.description = request.input('description');
+    post.user_id = request.input('user_id');
 
     await post.save()
     await post.load('user');
@@ -113,13 +118,14 @@ class PostController {
    * @param {Request} ctx.request
    * @param {Response} ctx.response
    */
-  async destroy ({ params, request, response }) {
-  }
-  async delete({auth, params, response}) {
+  async delete({auth, request, params, response}) {
 
-    await Post.find(params.id).delete()
+    await Database
+        .table('posts')
+        .where('id', request.all().id)
+        .delete()
 
-    return response.json({message: 'Post has been deleted'})
+    return response.send(1)
   }
 }
 

@@ -24,8 +24,11 @@ Route.post('/register', 'AuthController.register')
 Route.post('/login', 'AuthController.login')
 Route.get('/logout', 'AuthController.logout')
 
-Route.put('/posts/:id', 'PostController.update').middleware(['auth'])
-Route.delete('posts/id', 'PostController.delete').middleware(['auth'])
+Route.get('/posts/:id', 'PostController.edit').middleware(['auth'])
+Route.get('/posts/view/:id', 'PostController.show').middleware(['auth'])
+Route.get('/post/create', 'PostController.create').middleware(['auth'])
+Route.post('/posts/:id', 'PostController.update').middleware(['auth'])
+Route.delete('/posts/delete', 'PostController.delete').middleware(['auth'])
 Route.post('/posts', 'PostController.store').middleware(['auth'])
-Route.get('/posts', 'PostController.getPosts');
+Route.get('/posts', 'PostController.index').middleware(['auth'])
 
