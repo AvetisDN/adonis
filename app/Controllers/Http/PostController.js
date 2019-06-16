@@ -23,13 +23,14 @@ class PostController {
    * @param {View} ctx.view
    */
   async index ({ request, response, view }) {
-    let sort = 'id'
-    let type = 'desc'
+    let page = 1
+    let field = 'id'
+    let sort = 'desc'
+    if(request.get().page) page = request.get().page
+    if(request.get().field) field = request.get().field
     if(request.get().sort) sort = request.get().sort
-    if(request.get().type) type = request.get().type
-    let posts = await Post.query().with('user').orderBy(sort, type).fetch()
-    //return response.json(posts)
-    return view.render('post.index', {posts: posts.toJSON(), sort: sort, type: type})
+    let posts = await Post.query().with('user').orderBy(field, sort).paginate(page, 5)
+    return view.render('post.index', {posts: posts.toJSON(), sort: sort, field: field})
   }
 
   /**

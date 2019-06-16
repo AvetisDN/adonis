@@ -35,3 +35,13 @@ main aside {
 .warning {
   background-color: #ff8f00;
 }
+
+.sort-link {
+  display: inline-block;
+  padding: 1px 5px;
+  color: #ffffff;
+}
+.sort-link.active {
+  background-color: #ffffff;
+  color: #283593;
+}

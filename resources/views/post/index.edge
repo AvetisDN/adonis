@@ -4,7 +4,7 @@
 
 <section>
   <h4>
-    Записи
+    Записи (всего: {{posts.total}})
     <a href="/post/create" class="cyan darken-1 waves-effect waves-light btn tooltipped" data-position="right"
       data-tooltip="Добавить новую">
       <i class="material-icons">library_add</i>
@@ -16,18 +16,61 @@
       <tr class="blue-grey lighten-1 white-text">
         <th>
           ID
-          <a href="/posts?sort=id&type=asc">
+          <a href="/posts?field=id&sort=asc" class="sort-link
+          @if(field == 'id' && sort == 'asc')
+            active
+          @endif
+          ">
             &uarr;
           </a>
+          <a href="/posts?field=id&sort=desc" class="sort-link
+          @if((field == 'id' && sort == 'desc') || (!field && !sort) )
+                  active
+          @endif
+                  ">
+            &darr;
+          </a>
         </th>
-        <th>Заголовок записи</th>
+        <th>
+          Заголовок записи
+          <a href="/posts?field=title&sort=asc" class="sort-link
+          @if(field == 'title' && sort == 'asc')
+                  active
+          @endif
+                  ">
+            &uarr;
+          </a>
+          <a href="/posts?field=title&sort=desc" class="sort-link
+          @if(field == 'title' && sort == 'desc')
+                  active
+          @endif
+                  ">
+            &darr;
+          </a>
+        </th>
         <th>Автор</th>
-        <th width="170">Дата публикации</th>
+        <th width="190">
+          Дата публикации
+          <a href="/posts?field=created_at&sort=asc" class="sort-link
+          @if(field == 'created_at' && sort == 'asc')
+                  active
+          @endif
+                  ">
+            &uarr;
+          </a>
+          <a href="/posts?field=created_at&sort=desc" class="sort-link
+          @if(field == 'created_at' && sort == 'desc')
+                  active
+          @endif
+                  ">
+            &darr;
+          </a>
+        </th>
         <th width="180">&nbsp;</th>
       </tr>
     </thead>
     <tbody>
-      @each(post in posts)
+      @each(post in posts.data)
       <tr>
         <td>{{ post.id }}</td>
         <td>
@@ -52,6 +95,47 @@
       @endeach
     </tbody>
   </table>
+
+
+  <ul class="pagination">
+    <li class="
+    @if(posts.page == 1)
+      disabled">
+      <a href="/posts?field={{field}}&sort={{sort}}&page={{posts.page}}">
+    @else
+      waves-effect">
+      <a href="/posts?field={{field}}&sort={{sort}}&page={{posts.page - 1}}">
+    @endif
+
+      <i class="material-icons">chevron_left</i></a>
+    </li>
+
+    @each(page in range(posts.lastPage))
+    <li class="
+    @if(posts.page == page+1)
+            active
+    @else
+            waves-effect
+    @endif
+    ">
+      <a href="/posts?field={{field}}&sort={{sort}}&page={{page+1}}">
+        {{page+1}}
+      </a>
+    </li>
+    @endeach
+
+    <li class="
+    @if(posts.page == posts.lastPage)
+            disabled">
+      <a href="/posts?field={{field}}&sort={{sort}}&page={{posts.lastPage}}">
+    @else
+            waves-effect">
+          <a href="/posts?field={{field}}&sort={{sort}}&page={{posts.page + 1}}">
+    @endif
+      <i class="material-icons">chevron_right</i></a>
+    </li>
+  </ul>
+
 
 </section>
 
