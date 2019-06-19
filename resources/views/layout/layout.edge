@@ -10,6 +10,8 @@
           rel="stylesheet">
     {{ style('/css/materialize.min') }}
     {{ style('/css/style') }}
+    @section('styles')
+    @endsection
 </head>
 <body class="blue-grey lighten-5">
 
@@ -41,5 +43,8 @@
 {{ script('/js/jquery.min') }}
 {{ script('/js/materialize.min') }}
 {{ script('/js/script') }}
+
+@section('scripts')
+@endsection
 </body>
 </html>

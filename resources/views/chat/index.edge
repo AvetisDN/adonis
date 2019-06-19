@@ -1,0 +1,40 @@
+@layout('layout.layout')
+@section('styles')
+    {{style('css/chat')}}
+@endsection
+@section('scripts')
+    {{ script('https://cdnjs.cloudflare.com/ajax/libs/babel-polyfill/6.26.0/polyfill.min.js') }}
+    {{ script('https://unpkg.com/@adonisjs/websocket-client@1.0.9/dist/Ws.browser.js') }}
+    {{script('js/chat')}}
+@endsection
+@section('content')
+    <section class="container">
+
+        @set('username', auth.user.username)
+        @set('user_id', auth.user.id)
+
+        @if(username)
+            <div class="header">
+                <h5>
+                    <span>Hello {{ username }}!</span>
+                    <span class="connected-users"></span>
+                    <span class="connection-status"></span>
+                </h5>
+            </div>
+            <div class="messages-container">
+                <div class="messages teal lighten-5">
+                </div>
+            </div>
+            <div class="input-wrapper">
+                <input type="text" id="message" placeholder="Enter message" autofocus=1>
+            </div>
+        @else
+            <a href="/signin">Авторизируйтесь</a> для доступа к чату
+        @endif
+
+    </section>
+    <script>
+        window.username = '{{ username }}'
+        window.user_id = '{{ user_id }}'
+    </script>
+@endsection

@@ -32,3 +32,5 @@ Route.delete('/posts/delete', 'PostController.delete').middleware(['auth'])
 Route.post('/posts', 'PostController.store').middleware(['auth'])
 Route.get('/posts', 'PostController.index').middleware(['auth'])
 
+Route.get('/chat', 'ChatController.index')
+
