@@ -1,0 +1,53 @@
+@layout('layout.layout')
+@section('styles')
+    {{style('css/xo')}}
+@endsection
+@section('scripts')
+    {{ script('https://cdnjs.cloudflare.com/ajax/libs/babel-polyfill/6.26.0/polyfill.min.js') }}
+    {{ script('https://unpkg.com/@adonisjs/websocket-client@1.0.9/dist/Ws.browser.js') }}
+    {{script('js/xo')}}
+@endsection
+@section('content')
+    <section class="container">
+
+        @set('username', auth.user.username)
+        @set('user_id', auth.user.id)
+
+        @if(username)
+            <div class="header">
+                <h5>
+                    <span>Hello {{ username }}!</span>
+                    <span class="connected-users"></span>
+                    <span class="connection-status"></span>
+                </h5>
+            </div>
+            <div class="xo-container">
+
+                <ul class="xo-table">
+                    <li></li>
+                    <li></li>
+                    <li></li>
+
+                    <li></li>
+                    <li></li>
+                    <li></li>
+
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                </ul>
+
+            </div>
+            <div class="players">
+
+            </div>
+        @else
+            <a href="/signin">Авторизируйтесь</a> для доступа к игра
+        @endif
+
+    </section>
+    <script>
+        window.username = '{{ username }}'
+        window.user_id = '{{ user_id }}'
+    </script>
+@endsection

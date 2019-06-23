@@ -33,4 +33,5 @@ Route.post('/posts', 'PostController.store').middleware(['auth'])
 Route.get('/posts', 'PostController.index').middleware(['auth'])
 
 Route.get('/chat', 'ChatController.index')
+Route.get('/game/xo', 'XoController.index')
 

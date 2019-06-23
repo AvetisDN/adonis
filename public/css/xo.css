@@ -1,0 +1,66 @@
+.header {
+    padding: 10px 40px;
+    border-bottom: 1px solid #e8e8e8;
+    background: #fff;
+}
+
+.header h5 {
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+}
+
+.header h5 span:first-child {
+    flex: 1;
+}
+
+.connection-status {
+    width: 8px;
+    height: 8px;
+    background-color: red;
+    display: inline-block;
+    border-radius: 8px;
+}
+
+.connection-status.connected {
+    background-color: green;
+}
+
+.connected-users {
+    color: #999;
+    font-style: italic;
+}
+
+.xo-container .xo-table {
+    width: 300px;
+    height: 300px;
+    margin: 1rem auto;
+}
+.xo-container .xo-table li {
+    float: left;
+    border: 1px solid #dddddd;
+    width: 99px;
+    height: 99px;
+    cursor: pointer;
+    background-color: #fff;
+    transition: 250ms ease;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 4rem;
+}
+.xo-container .xo-table li:hover {
+    background-color: #eeeeee;
+}
+.xo-container .xo-table li.taken {
+    cursor: default;
+}
+.xo-container .xo-table li.taken:hover {
+    background-color: #fff;
+}
+.xo-container .xo-table li.x::after {
+    content: 'X';
+}
+.xo-container .xo-table li.o::after {
+    content: 'O';
+}
